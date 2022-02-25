@@ -39,8 +39,8 @@ describe("Users Endpoints", () => {
 describe("joke endpoint", () => {
   test("jokes restricted before login", async () => {
     const res = await request(server).get("/api/jokes");
-    expect(res.status).toBe(200);
-    // expect(res.body.message).toMatch(/token required/i);
+    expect(res.status).toBe(401);
+    expect(res.body.message).toMatch(/token required/i);
     
   });
   test("jokes allowed after login", async () => {

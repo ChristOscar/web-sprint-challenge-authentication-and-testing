@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 const jwt = require("jsonwebtoken");
 
-router.post('/register', (req, res) => {
+router.post('/register', (req, res, next) => {
   res.end('implement register, please!');
   /*
     IMPLEMENT
@@ -32,7 +32,7 @@ router.post('/register', (req, res) => {
   */
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
   res.end('implement login, please!');
   /*
     IMPLEMENT
@@ -58,5 +58,6 @@ router.post('/login', (req, res) => {
       the response body should include a string exactly as follows: "invalid credentials".
   */
 });
+
 
 module.exports = router;

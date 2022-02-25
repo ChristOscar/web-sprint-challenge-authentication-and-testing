@@ -8,8 +8,8 @@ const {TOKEN_SECRET, BCRYPT_ROUNDS} = require('../../config/index')
 
 function buildToken(user){
   const payload = {
-    subject: users.id,
-    username: users.username
+    subject: user.id,
+    username: user.username
   }
   const options = {
     expiresIn: '1d'
@@ -20,7 +20,21 @@ function buildToken(user){
 
 
 router.post('/register', (req, res, next) => {
-  res.end('implement register, please!');
+  let user = req.body;
+
+  const hash = bcrypt.hashSync(user.password, BCRYPT_ROUNDS);
+  if (req.body.username && req.body.password) {
+    user.password = hash;
+
+   Users.add(user)
+    .then((saved) => {
+      res.status(201).json(saved);
+    })
+    .catch(next)
+  } else {
+    res.status(400).json({ message: 'username and password are required'});
+  }
+  
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
